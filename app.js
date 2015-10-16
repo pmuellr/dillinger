@@ -26,6 +26,7 @@ var config = require('./config')()
   , github = require('./plugins/github/server.js')
   , googledrive = require('./plugins/googledrive/server.js')
   , onedrive = require('./plugins/onedrive/server.js')
+  , stats = require('./plugins/stats/server.js')
   , env = process.env.NODE_ENV || 'development';
   ;
 
@@ -85,6 +86,8 @@ app.locals.readme = fs.readFileSync(path.resolve(__dirname, './README.md'), 'utf
 if ('development' == env) {
   app.use(errorHandler())
 }
+
+app.use(stats)
 
 app.get('/', routes.index)
 app.get('/not-implemented', routes.not_implemented)
